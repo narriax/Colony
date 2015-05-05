@@ -1,0 +1,11 @@
+.collapsible form {
+	border: 1px solid silver;
+	padding: 0.5em;
+	margin-top: 1em;
+}
+.collapsible-expanded {
+	display: block;
+}
+.collapsible-collapsed {
+	display: none;
+}

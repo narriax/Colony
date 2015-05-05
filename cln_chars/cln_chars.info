@@ -1,0 +1,6 @@
+name = Cln Chars
+description = Manage characters
+
+core = 7.x
+package = Colony
+dependencies[] = cln_core

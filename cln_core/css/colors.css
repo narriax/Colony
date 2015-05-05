@@ -1,0 +1,11 @@
+html { 
+	background: black;
+}
+.colorChart .colorChart-hues li {
+	display: inline-block;
+}
+.colorChart div {
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+}
