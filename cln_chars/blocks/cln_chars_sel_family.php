@@ -4,7 +4,7 @@
 function cln_chars_block_sel_family () {
 	module_load_include ('class', 'cln_core', 'api/cln_colors');
 	drupal_add_js(drupal_get_path('module', 'cln_core').'/js/collapsible.js');
-	drupal_add_css(drupal_get_path('module', 'cln_core').'/css/colors.css');
+	drupal_add_css(drupal_get_path('module', 'cln_core').'/css/color_palette.css');
 	drupal_add_css(drupal_get_path('module', 'cln_core').'/css/collapsible.css');
 	
 	$content = '';

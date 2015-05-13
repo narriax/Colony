@@ -1,0 +1,23 @@
+.colorChart ul,
+.colorChart li  {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+.colorChart li {
+	display: block;
+}
+.colorChart-hues li {
+	display: inline-block;
+	border-left: 1px solid silver;
+	border-top: 1px solid silver;
+}
+.colorChart div {
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	vertical-align: top;
+}
+.colorChart li ul,
+.colorChart li ul li {
+	height: 11px;
+}

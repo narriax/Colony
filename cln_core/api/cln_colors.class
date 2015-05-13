@@ -6,13 +6,14 @@ class ColorSet {
 	public $hue_count;
 	public $colors;
 
-	public function __construct ($shade_count = 5, $hue_count = 9) {
+	public function __construct ($shade_count = 7, $hue_count = 13) {
 		$this->shade_count = $shade_count;
 		$this->hue_count = $hue_count;
 	}
 	
 	private function generateAllHues () {
 		return array (
+			array (0.5,0.5,0.5),
 			array (  1,  0,  0),
 			array (  1,0.5,  0),
 			array (  1,  1,  0),
@@ -20,7 +21,7 @@ class ColorSet {
 			array (  0,  1,  0),
 			array (  0,  1,0.5),
 			array (  0,  1,  1),
-			array (  0,0.5,  0),
+			array (  0,0.5,  1),
 			array (  0,  0,  1),
 			array (0.5,  0,  1),
 			array (  1,  0,  1),
@@ -47,18 +48,39 @@ class ColorSet {
 		if (!isset($shade_count)) $shade_count = $this->shade_count;
 		$hues = $this->generateHues($hue_count);
 		$colors = array ();
-		for ($g=0; $g < $shade_count; $g++) {
+		$darks = ceil($shade_count/2);
+		$lights = floor($shade_count/2);
+		
+		for ($g=0; $g < $darks; $g++) {
 			$colors[$g] = array();
+			$shade = (int)(255*($g+1)/$darks);
+			if ($shade > 255) $shade = 255;
 			for ($h=0; $h < count($hues); $h++) {
 				$colors[$g][$h] = '';
 				for ($i=0; $i<count($hues[$h]); $i++) {
-					$clr = dechex($hues[$h][$i]*255);
+					$clr = dechex($hues[$h][$i]*$shade);
 					if (strlen($clr)<2) $clr = '0'.$clr;
 					$colors[$g][$h] .= $clr;
-					
 				}
 			}
 		}
+		
+		for ($g=0; $g < $lights; $g++) {
+			$colors[$g+$darks] = array();
+			$add = ($g+1)/($lights+1);
+			
+			for ($h=0; $h < count($hues); $h++) {
+				$colors[$g+$darks][$h] = '';
+				for ($i=0; $i<count($hues[$h]); $i++) {
+					$clr = $hues[$h][$i]*255;
+					$clr = $clr + (255-$clr)*$add;
+					if ($clr > 255) $clr = 255;
+					$clr = dechex($clr);
+					if (strlen($clr)<2) $clr = '0'.$clr;
+					$colors[$g+$darks][$h] .= $clr;
+				}
+			}
+		}		
 		return $colors;
 	}
 
@@ -68,9 +90,7 @@ class ColorSet {
 		foreach ($set as $shade) {
 			$content .= '<li><ul class="colorChart-hues">';
 			foreach ($shade as $hue) {
-				$content .= '<li>';
-				$content .= '<div style="background: #'.$hue.';">&nbsp;</div>';
-				$content .= '</li>';
+				$content .= '<li><div style="background: #'.$hue.';"></div></li>';
 			}
 			$content .= '</ul></li>';
 		}
