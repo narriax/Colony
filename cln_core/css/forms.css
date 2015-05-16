@@ -5,7 +5,20 @@
 .float-top-right {
 	float: right;
 }
+fieldset legend span {
+	font-weight: bold;
+	text-shadow: none !important;
+}
 
+
+fieldset:disabled {
+	background: #ded;
+	border: 1px solid green;
+}
+fieldset:disabled legend {
+	border: 1px solid green;
+	background: #8a8;
+}
 
 .switcher-switch,
 .switcher-bag,

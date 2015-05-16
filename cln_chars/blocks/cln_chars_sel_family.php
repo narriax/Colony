@@ -20,7 +20,7 @@ function cln_chars_block_sel_family () {
 				 >+</button>';
 				 
 	// add-new form
-	$new_char_form = drupal_get_form('cln_chars_new_char_form');
+	//$new_char_form = drupal_get_form('cln_chars_new_char_form');
 	$content .= '<div id="BAG_new_family_pane" class="collapsible collapsible-collapsed">';
 	//$content .= render($new_char_form);
 		
