@@ -2,10 +2,13 @@
 
 
 function cln_chars_block_sel_family () {
-	module_load_include ('class', 'cln_core', 'api/cln_colors');
+	
+	// attach core libraries
 	drupal_add_js(drupal_get_path('module', 'cln_core').'/js/collapsible.js');
-	drupal_add_css(drupal_get_path('module', 'cln_core').'/css/color_palette.css');
 	drupal_add_css(drupal_get_path('module', 'cln_core').'/css/collapsible.css');
+	
+	// attach forms
+	module_load_include ('inc', 'cln_chars', 'forms/new_char_form');
 	
 	$content = '';
 	
@@ -17,18 +20,21 @@ function cln_chars_block_sel_family () {
 				 >+</button>';
 				 
 	// add-new form
+	$new_char_form = drupal_get_form('cln_chars_new_char_form');
 	$content .= '<div id="BAG_new_family_pane" class="collapsible collapsible-collapsed">';
-		$colors = new ColorSet();
+	//$content .= render($new_char_form);
+		
+		/*$colors = new ColorSet();
 		$content .= '<form method=POST>';
 		$content .= 'Name: <input name="family_name"></input>';
+		
+		//$content .= 'Color: <input name="family_color" id="color"></input>';
 		$content .= $colors->generateChart();
 		
-		$content .= 'Color: <input name="family_color"></input>';
 		$content .= '<select><option><div style="background=blue;">color</div></option></select>';
 		$content .= '<input type=submit value="Add" />';
+		*/
 		
 	$content .= '</form></div>';
-	
-	
 	return $content;
 }

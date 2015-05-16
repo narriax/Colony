@@ -1,0 +1,30 @@
+
+.hidden {
+	display: none !important;
+}
+.float-top-right {
+	float: right;
+}
+
+
+.switcher-switch,
+.switcher-bag,
+.form-item {
+	display: inline-block;
+	vertical-align: top;
+}
+.switcher-switch {
+	vertical-align: top;
+}
+.switcher-switch label {
+	float: left;
+	clear: right;
+}
+.switcher-switch input {
+	margin-top: 2em;
+	margin-left: -1.5em;
+	margin-right: 1.5em;
+}
+.switcher-bag select {
+	min-width: 4em;
+}
