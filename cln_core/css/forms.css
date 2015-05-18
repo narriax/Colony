@@ -20,6 +20,13 @@ fieldset:disabled legend {
 	background: #8a8;
 }
 
+.button-reset {
+	position: absolute;
+	right: 1em;
+	z-index: 5;
+	margin-top: 1em;
+}
+
 .switcher-switch,
 .switcher-bag,
 .form-item {

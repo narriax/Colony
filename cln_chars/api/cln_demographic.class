@@ -1,0 +1,161 @@
+<?php
+
+class cln_demographic {
+	public $species;
+	public $race;
+	public $subrace;
+	public $ethnicity;
+
+	public function __construct ($ethnicity = null) {
+	
+	}
+	
+	public function get_tree () {
+		$bodytypes = $this->get_bodytypes();
+		$species = $this->get_species();
+		$races = $this->get_races();
+		$subraces = $this->get_subraces();
+		$ethnicities = $this->get_ethnicities();
+		
+		$tree = array ('name' => 'root', 'type' => 'root', 'children' => array());
+		foreach ($bodytypes as $body_id => $body) {
+			$tree['children'][$body_id] = array (
+					'name' => $body, 'type' => 'bodytype', 'children' => array());
+			foreach ($species as $sp_id => $sp) {
+				if ($sp->body != $body) continue;
+				$tree['children'][$body_id]['children'][$sp_id] = array (
+						'name' => $sp->name, 'type'=>'species', 'children' => array());
+				foreach ($races as $race_id => $race) {
+					if ($race->species != $sp_id) continue;
+					$tree['children'][$body_id]['children'][$sp_id]['children'][$race_id] = array (
+							'name' => $race->name, 'type'=>'race', 'children' => array());
+					foreach ($subraces as $sr_id => $sr) {
+						if ($sr->race != $race_id) continue;
+						$tree['children'][$body_id]['children'][$sp_id]['children'][$race_id]['children'][$sr_id] = array (
+								'name' => $sr->name, 'type'=>'subrace', 'children' => array());
+						foreach ($ethnicities as $eth_id => $eth) {
+							if ($eth->subrace != $sr_id) continue;
+							$tree['children'][$body_id]['children'][$sp_id]['children'][$race_id]['children'][$sr_id]['children'][$eth_id] = array (
+									'name' => $eth->name, 'type'=>'ethnicity');
+						}
+					}
+				}
+			}
+		}
+		return $tree;
+	}	
+	
+	public function get_bodytypes () {
+		// query from colonies
+		db_set_active('colony');
+		$q = db_select ('char_dem_species', 'cds');
+		db_set_active();	
+		$q->fields('cds', array('body'));
+		$q->groupby('cds.body');
+		$records = $q->execute();
+		
+		// aggregate results
+		$b = array();
+		foreach ($records as $r) {
+			$b[] = $r->body;
+		}
+		
+		// resort and index results
+		$bodies = array();
+		foreach ($b as $body) {
+			if ($body == 'HUMANOID') {
+				$bodies[1] = $body;
+				break;
+			}
+		}
+		foreach ($b as $body) {
+			if ($body == 'HUMANOID') continue;
+			$bodies[count($bodies)+1] = $body;
+		}
+		return $bodies;
+	}
+	
+	public function get_species ($bodytype = '') {
+		// query from colonies
+		db_set_active('colony');
+		$q = db_select ('char_dem_species', 'cds');
+		db_set_active();
+		$q->fields('cds', array());
+		
+		// restrict by bodytype, if specified
+		if (!empty($bodytype)) {
+			$q->condition('cds.body', $bodytype);
+		}
+		$records = $q->execute();
+		
+		// aggregate results
+		$species = array();
+		foreach ($records as $r) {
+			$species[$r->id] = $r;
+		}
+		return $species;
+	}
+	
+	public function get_races ($species = '') {
+		// query from colonies
+		db_set_active('colony');
+		$q = db_select ('char_dem_race', 'cdr');
+		db_set_active();
+		$q->fields('cdr', array());
+		
+		// restrict by bodytype, if specified
+		if (!empty($bodytype)) {
+			$q->condition('cds.species', $species);
+		}
+		$records = $q->execute();
+
+		// aggregate results
+		$races = array();
+		foreach ($records as $r) {
+			$races[$r->id] = $r;
+		}
+		return $races;		
+	}
+	
+	public function get_subraces ($race = '') {
+		// query from colonies
+		db_set_active('colony');
+		$q = db_select ('char_dem_subrace', 'cdsr');
+		db_set_active();
+		$q->fields('cdsr', array());
+		
+		// restrict by bodytype, if specified
+		if (!empty($bodytype)) {
+			$q->condition('cdsr.race', $race);
+		}
+		$records = $q->execute();
+
+		// aggregate results
+		$subraces = array();
+		foreach ($records as $r) {
+			$subraces[$r->id] = $r;
+		}
+		return $subraces;		
+	}	
+
+	public function get_ethnicities ($subrace = '') {
+		// query from colonies
+		db_set_active('colony');
+		$q = db_select ('char_dem_ethnicity', 'cde');
+		db_set_active();
+		$q->fields('cde', array());
+		
+		// restrict by bodytype, if specified
+		if (!empty($bodytype)) {
+			$q->condition('cde.subrace', $subrace);
+		}
+		$records = $q->execute();
+
+		// aggregate results
+		$ethnicities = array();
+		foreach ($records as $r) {
+			$ethnicities[$r->id] = $r;
+		}
+		return $ethnicities;	
+	}
+}
