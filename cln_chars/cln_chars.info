@@ -2,5 +2,5 @@ name = Cln Chars
 description = Manage characters
 
 core = 7.x
-package = Colony
+package = Narriax: Colony
 dependencies[] = cln_core
