@@ -42,8 +42,13 @@ function cln_chars_new_char_form ($form, &$form_state) {
 	module_load_include ('class', 'cln_core', 'tools/colors/colors');
 	drupal_add_js(drupal_get_path('module', 'cln_core').'/js/forms.js');
 	
-	drupal_add_js(libraries_get_path('colorpicker').'/js/colorpicker.js');
-	drupal_add_css(libraries_get_path('colorpicker').'/css/colorpicker.css');
+	if (module_exists('jquery_colorpicker')) {
+		drupal_add_js(libraries_get_path('colorpicker').'/js/colorpicker.js');
+		drupal_add_css(libraries_get_path('colorpicker').'/css/colorpicker.css');
+	} else {
+		form_set_error('', 'ERROR: must have [Jquery Colorpicker] module and associated libraries installed and enabled.');
+		return $form;
+	}
 	
 	// attach class libraries
 	module_load_include ('class', 'cln_chars', 'api/cln_demographic');
