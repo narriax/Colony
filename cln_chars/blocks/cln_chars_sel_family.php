@@ -4,8 +4,8 @@
 function cln_chars_block_sel_family () {
 	
 	// attach core libraries
-	drupal_add_js(drupal_get_path('module', 'cln_core').'/js/collapsible.js');
-	drupal_add_css(drupal_get_path('module', 'cln_core').'/css/collapsible.css');
+	drupal_add_js(drupal_get_path('module', 'cln').'/js/collapsible.js');
+	drupal_add_css(drupal_get_path('module', 'cln').'/css/collapsible.css');
 	
 	// attach forms
 	module_load_include ('inc', 'cln_chars', 'forms/new_char_form');

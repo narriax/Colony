@@ -39,8 +39,8 @@ function cln_chars_forms_get_saved_value ($form, $step, $valuekey) {
 function cln_chars_new_char_form ($form, &$form_state) {
 
 	// attach tool libraries
-	module_load_include ('class', 'cln_core', 'tools/colors/colors');
-	drupal_add_js(drupal_get_path('module', 'cln_core').'/js/forms.js');
+	module_load_include ('class', 'cln', 'tools/colors/colors');
+	drupal_add_js(drupal_get_path('module', 'cln').'/js/forms.js');
 	
 	if (module_exists('jquery_colorpicker')) {
 		drupal_add_js(libraries_get_path('colorpicker').'/js/colorpicker.js');

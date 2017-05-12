@@ -1,6 +1,7 @@
-name = Cln Chars
-description = Manage characters
+name = Colony Chars
+description = Create and manage characters
 
 core = 7.x
-package = Narriax: Colony
-dependencies[] = cln_core
+package = NX Colony
+dependencies[] = NX Colony:cln
+

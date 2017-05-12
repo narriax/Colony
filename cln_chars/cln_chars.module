@@ -1,4 +1,9 @@
 <?php
+
+module_load_include('module', 'nx', 'nx');
+nx_mod_initialize(__FILE__);
+
+
 /**
  * Implements hook_help().
  *
@@ -9,42 +14,12 @@
  * @param arg 
  *   Array that holds the current path as returned from arg() function
  */
+ /*
 function cln_chars_help($path, $arg) {
   switch ($path) {
     case "admin/help#cln_chars":
       return '<p>Manage characters</p>';
       break;
   }
-} 
-
-/*
- *	BLOCKS
- */
-function cln_chars_block_info () {
-	$blocks = array ();
-	$blocks['cln_chars_sel_family'] = array (
-		'info' => ('Colony - Chars: Family selector'),
-	);
-	return $blocks;
 }
-
-function cln_chars_block_view ($delta='') {
-	$block = array();
-	switch ($delta) {
-		case 'cln_chars_sel_family':
-		module_load_include ('php', 'cln_chars', 'blocks/cln_chars_sel_family');
-		$block['title'] = 'Select Family';
-		$block['content'] = cln_chars_block_sel_family();
-		break;
-	}
-	return $block;
-}
-
-
-
-
-
-
-
-
-
+*/
