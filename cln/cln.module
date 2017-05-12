@@ -1,0 +1,5 @@
+<?php
+
+module_load_include('module', 'nx', 'nx');
+nx_mod_initialize(__FILE__);
+

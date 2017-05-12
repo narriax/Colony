@@ -1,0 +1,9 @@
+name = NX CLN
+description = Evolve humanity into more awesomeness
+
+core = 7.x
+package = NX Colony
+dependencies[] = NX:nx
+dependencies[] = jquery_colorpicker
+
+files[] = cln.module
